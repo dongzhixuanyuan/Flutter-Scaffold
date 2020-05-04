@@ -26,51 +26,52 @@ class _MainPageState extends State<MainPage>
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: Column(
-        children: <Widget>[
-          //上部填充区域
-          Expanded(
-            child: PageView(
-              scrollDirection: Axis.horizontal,
-              controller: _pageController,
-              physics: NeverScrollableScrollPhysics(),
-              onPageChanged: (page) {
-                print('page = $page');
-              },
-              children: <Widget>[
-                HomePage(),
-                Container(
-                  child: Text('购票'),
+          top: false,
+          child: Column(
+            children: <Widget>[
+              //上部填充区域
+              Expanded(
+                child: PageView(
+                  scrollDirection: Axis.horizontal,
+                  controller: _pageController,
+                  physics: NeverScrollableScrollPhysics(),
+                  onPageChanged: (page) {
+                    print('page = $page');
+                  },
+                  children: <Widget>[
+                    HomePage(),
+                    Container(
+                      child: Text('购票'),
+                    ),
+                    UserInfoPage()
+                  ],
                 ),
-                UserInfoPage()
-              ],
-            ),
-          ),
-          TabBar(
-            tabs: <Widget>[
-              Tab(
-                icon: Icon(Icons.directions_bike),
-                text: '推荐',
               ),
-              Tab(icon: Icon(Icons.directions_car), text: '购票'),
-              Tab(icon: Icon(Icons.directions_bus), text: '我的'),
-            ],
-            controller: _tabController,
-            labelPadding: EdgeInsets.only(left: 14.0, right: 14.0),
-            unselectedLabelColor: Colours.text_dark,
-            unselectedLabelStyle: TextStyles.textGray12,
-            labelStyle: TextStyles.textBlueC15,
-            labelColor: Colours.text_blue,
-            onTap: (int index) {
-              _pageController.jumpToPage(index);
-            },
-            indicatorColor: Colors.transparent,
-          )
+              TabBar(
+                tabs: <Widget>[
+                  Tab(
+                    icon: Icon(Icons.directions_bike),
+                    text: '推荐',
+                  ),
+                  Tab(icon: Icon(Icons.directions_car), text: '购票'),
+                  Tab(icon: Icon(Icons.directions_bus), text: '我的'),
+                ],
+                controller: _tabController,
+                labelPadding: EdgeInsets.only(left: 14.0, right: 14.0),
+                unselectedLabelColor: Colours.text_dark,
+                unselectedLabelStyle: TextStyles.textGray12,
+                labelStyle: TextStyles.textBlueC15,
+                labelColor: Colours.text_blue,
+                onTap: (int index) {
+                  _pageController.jumpToPage(index);
+                },
+                indicatorColor: Colors.transparent,
+              )
 
-          // 底部tabbar
-        ],
-      ),
-    ));
+              // 底部tabbar
+            ],
+          ),
+        ));
   }
 
   @override

@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:travelflutter/application.dart';
 import 'package:travelflutter/res/colors.dart';
 import 'package:travelflutter/res/resources.dart';
+import 'package:travelflutter/router/routers.dart';
 
 class UserInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var topInsets = MediaQuery.of(context).padding.top;
     return Column(
       children: <Widget>[
+        Container(
+          color: Colors.blue,
+          height: topInsets,
+        ),
+
         Container(
           alignment: Alignment.center,
           height: 30.h,
@@ -17,10 +25,7 @@ class UserInfoPage extends StatelessWidget {
             style: TextStyles.textWhite20,
             textAlign: TextAlign.center,
           ),
-          color: Colours.text_blue,
-        ),
-        SizedBox(
-          height: 40,
+          color: Colors.blue,
         ),
         Expanded(
           child: ListView(
@@ -55,6 +60,7 @@ class UserInfoPage extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     //todo 退出登录的操作。
+                    Application.router.navigateTo(context, TravelRouter.login);
                   },
                   child: Container(
                       width: 300.w,

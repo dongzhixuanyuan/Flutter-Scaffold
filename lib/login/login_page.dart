@@ -10,12 +10,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController editController;
+  TextEditingController userNameController;
+  TextEditingController passWordController;
 
   @override
   void initState() {
     super.initState();
-    editController = TextEditingController();
+    userNameController = TextEditingController();
+    passWordController = TextEditingController();
   }
 
   @override
@@ -43,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(hintText: '请输入用户名'),
-                    controller: editController,
+                    controller: userNameController,
                     //最大长度，设置此项会让TextField右下角有一个输入数量的统计字符串
                     maxLines: 1,
                     //最大行数
@@ -86,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(hintText: '请输入密码'),
-                    controller: editController,
+                    controller: passWordController,
                     //最大长度，设置此项会让TextField右下角有一个输入数量的统计字符串
                     maxLines: 1,
                     //最大行数
@@ -139,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
             GestureDetector(
               onTap: () {
                 //todo 注册操作
-                editController?.text;
+                userNameController?.text;
               },
               child: Text(
                 '注册',

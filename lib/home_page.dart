@@ -13,9 +13,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    var topInsets = MediaQuery.of(context).padding.top;
     return Column(
       //banner
       children: <Widget>[
+        Container(
+          color: Colors.blue,
+          height: topInsets,
+        ),
+
         Container(
           height: 150.h,
           child: Swiper(

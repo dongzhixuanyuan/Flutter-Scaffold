@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
     final router =   Router();
     TravelRouter.configureRoutes(router);
     Application.router = router;
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
