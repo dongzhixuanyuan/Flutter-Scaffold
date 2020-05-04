@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:travelflutter/home_page.dart';
 import 'package:travelflutter/res/resources.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:travelflutter/user/user_info.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -41,9 +42,7 @@ class _MainPageState extends State<MainPage>
                 Container(
                   child: Text('购票'),
                 ),
-                Container(
-                  child: Text('我的'),
-                )
+                UserInfoPage()
               ],
             ),
           ),

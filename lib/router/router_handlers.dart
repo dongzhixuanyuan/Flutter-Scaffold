@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:travelflutter/home_page.dart';
 import 'package:travelflutter/login/login_page.dart';
 import 'package:travelflutter/main_page.dart';
+import 'package:travelflutter/user/user_info.dart';
 
 
 void initScreenUtil(BuildContext context) {
@@ -30,5 +31,11 @@ var homeHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynami
 var mainHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   initScreenUtil(context);
   return MainPage();
+
+});
+
+var userInfoHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return UserInfoPage();
 
 });

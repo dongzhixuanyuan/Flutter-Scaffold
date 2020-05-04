@@ -13,6 +13,7 @@ class TravelRouter {
   static const String root = "/";
   static const String home = "/home";
   static const String main = "/main";
+  static const String user = "/user";
 
 
   static void configureRoutes(Router router) {
@@ -20,5 +21,6 @@ class TravelRouter {
     router.define(root, handler: mainHandler);
     router.define(home, handler: homeHandler);
     router.define(main, handler: mainHandler);
+    router.define(user, handler: userInfoHandler);
   }
 }
