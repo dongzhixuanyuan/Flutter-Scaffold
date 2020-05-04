@@ -12,10 +12,13 @@ class TravelRouter {
   static const String login = "/login";
   static const String root = "/";
   static const String home = "/home";
+  static const String main = "/main";
 
 
   static void configureRoutes(Router router) {
     router.define(login, handler: loginHandler);
-    router.define(root, handler: loginHandler);
+    router.define(root, handler: mainHandler);
+    router.define(home, handler: homeHandler);
+    router.define(main, handler: mainHandler);
   }
 }

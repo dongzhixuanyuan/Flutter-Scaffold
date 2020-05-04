@@ -6,7 +6,9 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:travelflutter/home_page.dart';
 import 'package:travelflutter/login/login_page.dart';
+import 'package:travelflutter/main_page.dart';
 
 
 void initScreenUtil(BuildContext context) {
@@ -19,7 +21,14 @@ var loginHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynam
   return LoginPage();
 });
 
-//var infoListHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-//  initScreenUtil(context);
-//
-//});
+var homeHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return HomePage();
+
+});
+
+var mainHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return MainPage();
+
+});

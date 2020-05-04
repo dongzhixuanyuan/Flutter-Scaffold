@@ -185,6 +185,11 @@ class TextStyles {
     fontSize: Dimens.font_sp15,
     color: Colours.text_gray_c,
   );
+
+  static const TextStyle textBlueC15 = TextStyle(
+    fontSize: Dimens.font_sp15,
+    color: Colours.text_blue,
+  );
 }
 
 /// 间隔
