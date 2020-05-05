@@ -8,9 +8,9 @@ class Api {
   //用户头像图片地址
   static const String ImageUrl = BaseTomcatUrl + "people.jpg";
   //登录请求接口
-  static const String SetLogin = BaseUrl + "login/json.action";
+  static const String SetLogin = BaseUrl + "login/json.action"; //ok
   //登录获取接口
-  static const String GetLogin = BaseTomcatUrl + "login.json";
+  static const String GetLogin = BaseTomcatUrl + "login.json"; //ok
   //注册请求接口
   static const String SetRegister = BaseUrl + "register/json.action";
   //旅游攻略请求接口
