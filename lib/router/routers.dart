@@ -20,7 +20,7 @@ class TravelRouter {
   static void configureRoutes(Router router) {
     router.define(login, handler: loginHandler);
     router.define(register, handler: registerHandler);
-    router.define(root, handler: mainHandler);
+    router.define(root, handler: splashHandler);
     router.define(home, handler: homeHandler);
     router.define(main, handler: mainHandler);
     router.define(user, handler: userInfoHandler);

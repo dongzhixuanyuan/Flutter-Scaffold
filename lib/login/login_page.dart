@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:travelflutter/application.dart';
+import 'package:travelflutter/common/customToast.dart';
+import 'package:travelflutter/net/api_repository.dart';
 import 'package:travelflutter/res/colors.dart';
 import 'package:travelflutter/res/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:travelflutter/router/routers.dart';
+import 'package:travelflutter/user/user.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -121,8 +125,21 @@ class _LoginPageState extends State<LoginPage> {
               height: 20.h,
             ),
             GestureDetector(
-              onTap: () {
-                //todo 登录到服务器
+              onTap: () async {
+                if (userNameController?.text.isNotEmpty &&
+                    passWordController?.text.isNotEmpty) {
+                  var response = await ApiRepository.login(
+                      userNameController?.text, passWordController?.text, () {
+                    Toast.show('登录失败，请检查用户名和密码', context);
+                  });
+                  if (response.code == 200 &&
+                      response.data.result.stat == '1') {
+                    Toast.show('登录成功', context);
+                    MineUser.user = response.data.result.login.first;
+                  }
+                } else {
+                  Toast.show('用户名和密码不能为空', context);
+                }
               },
               child: Container(
                   width: 300.w,
@@ -148,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                 '注册',
                 style: TextStyles.textDark17,
               ),
-            )
+            ),
           ],
         ),
       ),

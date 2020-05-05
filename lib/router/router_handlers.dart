@@ -11,6 +11,7 @@ import 'package:travelflutter/home_detail/bloc/home_detail_page.dart';
 import 'package:travelflutter/login/login_page.dart';
 import 'package:travelflutter/login/register_page.dart';
 import 'package:travelflutter/main_page.dart';
+import 'package:travelflutter/splash_page.dart';
 import 'package:travelflutter/user/user_info.dart';
 
 
@@ -19,36 +20,45 @@ void initScreenUtil(BuildContext context) {
       width: 375, height: 670, allowFontScaling: false); //根据UI稿件设置屏幕基准
 }
 
-var loginHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-  initScreenUtil(context);
-  return LoginPage();
-});
 
-var registerHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-  initScreenUtil(context);
-  return RegisterPage();
-});
+var splashHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      initScreenUtil(context);
+      return SplashPage();
+    });
 
-var homeHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-  initScreenUtil(context);
-  return HomePage();
+var loginHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      initScreenUtil(context);
+      return LoginPage();
+    });
 
-});
+var registerHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      initScreenUtil(context);
+      return RegisterPage();
+    });
 
-var mainHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-  initScreenUtil(context);
-  return MainPage();
+var homeHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      initScreenUtil(context);
+      return HomePage();
+    });
 
-});
+var mainHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      initScreenUtil(context);
+      return MainPage();
+    });
 
-var userInfoHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-  initScreenUtil(context);
-  return UserInfoPage();
+var userInfoHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      initScreenUtil(context);
+      return UserInfoPage();
+    });
 
-});
-
-var detailHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-  initScreenUtil(context);
-  return StrategyDetailPage(params['data']?.first);
-
-});
+var detailHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      initScreenUtil(context);
+      return StrategyDetailPage(params['data']?.first);
+    });
