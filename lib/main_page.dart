@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:travelflutter/home_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travelflutter/home/home_page.dart';
 import 'package:travelflutter/res/resources.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:travelflutter/user/user_info.dart';
+
+import 'home/bloc/bloc.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -18,6 +21,7 @@ class _MainPageState extends State<MainPage>
   @override
   void initState() {
     super.initState();
+    BlocSupervisor.delegate = SimpleBlocDelegate();
     _pageController = PageController(initialPage: 0, keepPage: true);
     _tabController = TabController(initialIndex: 0, length: 3, vsync: this);
   }

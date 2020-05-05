@@ -6,7 +6,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:travelflutter/home_page.dart';
+import 'package:travelflutter/home/home_page.dart';
 import 'package:travelflutter/login/login_page.dart';
 import 'package:travelflutter/main_page.dart';
 import 'package:travelflutter/user/user_info.dart';
