@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:travelflutter/bloc/common_event.dart';
 import 'package:travelflutter/bloc/common_state.dart';
 import 'package:travelflutter/home/bloc/bloc.dart';
+import 'package:travelflutter/home/home_list_item.dart';
 import 'package:travelflutter/res/resources.dart';
 import 'package:bloc/bloc.dart';
 
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage>
             duration: 1000,
           ),
         ),
-        Text('旅游攻略', style: TextStyles.textBoldDark26),
+        Text('旅游攻略', style: TextStyles.textBoldDark26,textAlign:TextAlign.center ,),
         Expanded(
           child: BlocBuilder(
             bloc: bloc,
@@ -61,9 +62,10 @@ class _HomePageState extends State<HomePage>
               } else if (state is ListLoaded) {
                 return ListView.builder(
                   itemBuilder: (BuildContext context, int index) {
-                    return Text('第$index条攻略', style: TextStyles.textDark14);
+                    return HomeItem(state.data[index]);
                   },
-                  itemCount: 60,
+                  itemCount: state.data.length,
+                  padding:EdgeInsets.only(top: 5.h) ,
                 );
               }
               return Center(child: Text("加载失败"));
