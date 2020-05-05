@@ -11,13 +11,15 @@ class ApiRepository {
   static Future<NetResponse<StrategyModel>> getStrategyData(onError) async {
     var response =
         await HttpManager.instance.get(Api.GetStrategy, onError: onError);
-//    if (response != null &&
-//        response.statusCode == 200 &&
-//        response.data is Map) {
-//      return NetResponse<StrategyModel>(
-//          200, '', StrategyModel.fromJson(response.data));
-//    }
-    return NetResponse(
-        response.statusCode, response.statusMessage, StrategyModel.fromJson(response.data));
+    return NetResponse(response.statusCode, response.statusMessage,
+        StrategyModel.fromJson(response.data));
+  }
+
+  static Future<bool> register(
+      String userName, String password, String phoneNum, onError) async {
+    var response = await HttpManager.instance.post(Api.SetRegister,
+        data: {'username': userName, 'password': password, 'phone': phoneNum},
+        onError: onError);
+    return response.statusCode == 200;
   }
 }

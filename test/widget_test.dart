@@ -9,7 +9,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:travelflutter/main.dart';
 import 'package:travelflutter/net/api_repository.dart';
 
 void main() {
@@ -22,5 +21,18 @@ void main() {
     var data = await ApiRepository.getStrategyData(onError);
     assert (data.code == 200);
   });
+
+  test("register", () async {
+
+    onError(DioError dioError){
+      print(dioError);
+      throwsA(isStateError);
+    }
+    var data = await ApiRepository.register('liudong','123','18937894567',onError);
+    assert (data);
+  });
+
+
+
 
 }
