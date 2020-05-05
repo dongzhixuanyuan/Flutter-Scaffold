@@ -1,18 +1,13 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travelflutter/bloc/bloc.dart';
 import 'package:travelflutter/bloc/common_state.dart';
+import 'package:travelflutter/home/model/strategy_model.dart';
+import 'package:travelflutter/net/api_repository.dart';
 import 'package:travelflutter/net/common_net_response.dart';
 
 import 'list_event.dart';
 import 'list_state.dart';
 
-class ListResultModel {
-  final List<int> content;
-
-  const ListResultModel(this.content);
-}
-
-class ListBloc extends CommonBloc<ListEvent, ListState,ListResultModel> {
+class ListBloc extends CommonBloc<ListEvent, ListState, StrategyModel> {
   int currentPage = 0;
   static int patchSize = 50;
   int totalPage = 0;
@@ -23,14 +18,19 @@ class ListBloc extends CommonBloc<ListEvent, ListState,ListResultModel> {
   CommonState get initialState => Loading();
 
   @override
-  ListState parseResult(NetResponse) {
-    return null;
+  CommonState parseResult(NetResponse<StrategyModel> reponse) {
+    if (reponse.data.result != null && reponse.data.result.stat == 1) {
+      currentPage = 0;
+      return ListLoaded(reponse.data.result.strategy);
+    }
+    return Failure();
   }
 
   @override
-  Future<NetResponse<ListResultModel>> reloadData() async {
-    // TODO: implement reloadData
-    return null;
+  Future<NetResponse<StrategyModel>> reloadData() async {
+    return await ApiRepository.getStrategyData((e) {
+      print("ListBloc:reloadData error");
+    });
   }
 
   @override
@@ -42,11 +42,11 @@ class ListBloc extends CommonBloc<ListEvent, ListState,ListResultModel> {
         return NoMoreWord();
       } else {
         currentPage++;
-        List<int> preloaded =
-            List<int>.from((state as ListLoaded).data).toList();
+        List<Strategy> preloaded =
+            List<Strategy>.from((state as ListLoaded).data).toList();
         final responseModel = await reloadData();
-        preloaded.addAll(responseModel.data.content);
-        return ListLoaded(preloaded,0,10,100);
+        preloaded.addAll(responseModel.data.result.strategy);
+        return ListLoaded(preloaded);
       }
     }
   }

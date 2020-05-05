@@ -1,19 +1,23 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:travelflutter/home/model/strategy_model.dart';
+import 'package:travelflutter/net/common_net_response.dart';
 
+import 'api.dart';
+import 'http_manager.dart';
 
-class ApiRepository{
-
-  ///
-  /// 获取首页banner数据
-  /// [onError] 传入获取数据过程出错的处理回调方法
-  ///
-//  static Future<ExamBanner> getExamBanner(onError) async {
-//    var examBannerResult = await HttpManager.instance.get(Api.EXAM_BANNER, onError: onError);
-//    Map jsonMap = json.decode(examBannerResult.toString());
-//    ExamBanner examBanner = ExamBanner.fromJson(jsonMap);
-//    return examBanner;
-//  }
-
+class ApiRepository {
+  static Future<NetResponse<StrategyModel>> getStrategyData(onError) async {
+    var response =
+        await HttpManager.instance.get(Api.GetStrategy, onError: onError);
+//    if (response != null &&
+//        response.statusCode == 200 &&
+//        response.data is Map) {
+//      return NetResponse<StrategyModel>(
+//          200, '', StrategyModel.fromJson(response.data));
+//    }
+    return NetResponse(
+        response.statusCode, response.statusMessage, response.data);
+  }
 }

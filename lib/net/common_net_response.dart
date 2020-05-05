@@ -1,4 +1,4 @@
-abstract class NetResponse<T> {
+class NetResponse<T> {
   final int code;
   final String msg;
   final T data;

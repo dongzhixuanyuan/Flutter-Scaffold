@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:travelflutter/bloc/common_state.dart';
+import 'package:travelflutter/home/model/strategy_model.dart';
 import 'package:travelflutter/net/common_net_response.dart';
 
 import 'list_bloc.dart';
@@ -13,9 +14,9 @@ class ListState extends CommonState {
 
 class ListLoaded extends ListState {
   final int page, totalPage, totalCount;
-  final List<int> data;
+  final List<Strategy> data;
 
-  const ListLoaded(this.data, this.page, this.totalPage, this.totalCount);
+  const ListLoaded(this.data, {this.page = 0, this.totalPage = 0, this.totalCount = 0});
 
   @override
   List<Object> get props => [data, page, totalPage, totalCount];

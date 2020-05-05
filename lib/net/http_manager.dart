@@ -45,7 +45,6 @@ class HttpManager {
   Future<Response> get(urlOrPath, {queryParametersData, options, cancelToken, void onError(DioError e)}) async {
     Response response;
     try {
-//      queryParametersData = await getCombineCommonsParams(queryParametersData);
       response = await dio.get(urlOrPath,
           queryParameters: queryParametersData, options: options, cancelToken: cancelToken);
     } on DioError catch (e) {
