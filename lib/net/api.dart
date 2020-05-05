@@ -14,21 +14,21 @@ class Api {
   //注册请求接口
   static const String SetRegister = BaseUrl + "register/json.action";
   //旅游攻略请求接口
-  static const String SetStrategy = BaseUrl + "strategy/json.action";
+  static const String SetStrategy = BaseUrl + "strategy/json.action";//ok
   //旅游攻略获得接口
-  static const String GetStrategy = BaseTomcatUrl + "strategy.json";
+  static const String GetStrategy = BaseTomcatUrl + "strategy.json";//ok
   //火车票请求接口
-  static const String SetTrain = BaseUrl + "train/json.action";
+  static const String SetTrain = BaseUrl + "train/json.action";//ok
   //火车票获得接口
-  static const String GetTrain = BaseTomcatUrl + "train.json";
+  static const String GetTrain = BaseTomcatUrl + "train.json"; //ok
   //机票请求接口
-  static const String SetFlight = BaseUrl + "flight/json.action";
+  static const String SetFlight = BaseUrl + "flight/json.action";//ok
   //机票获得接口
-  static const String GetFlight = BaseTomcatUrl + "flight.json";
+  static const String GetFlight = BaseTomcatUrl + "flight.json"; // ok
   //评价列表请求接口
   static const String SetEvaluate = BaseUrl + "evaluate/json.action";
   //评价列表获得接口
-  static const String GetEvaluate = BaseTomcatUrl + "evaluate.json";
+  static const String GetEvaluate = BaseTomcatUrl + "evaluate.json"; //ok
   //评价请求接口
   static const String SetInsertEvaluate = BaseUrl + "insertevaluate/json.action";
   //购票请求接口

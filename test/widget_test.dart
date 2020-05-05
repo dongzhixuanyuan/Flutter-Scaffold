@@ -33,6 +33,18 @@ void main() {
   });
 
 
+  test("login", () async {
+
+    onError(DioError dioError){
+      print(dioError);
+      throwsA(isStateError);
+    }
+//    var data = await ApiRepository.login('liudong','123',onError);
+    var data = await ApiRepository.login('liudong','123',onError);
+    assert (data);
+  });
+
+
 
 
 }
