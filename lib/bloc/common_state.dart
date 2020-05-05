@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:travelflutter/net/common_net_response.dart';
 
 abstract class CommonState extends Equatable {
   const CommonState();
