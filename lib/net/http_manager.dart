@@ -13,7 +13,7 @@ class HttpManager {
   static Map<String,dynamic> commonParams;
 
   HttpManager(){
-    var baseUrl = Api.BASE_URL;
+    var baseUrl = Api.BaseUrl;
 
     BaseOptions baseOptions = new BaseOptions(
       //连接服务器超时时间
