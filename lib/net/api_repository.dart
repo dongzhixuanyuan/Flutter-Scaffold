@@ -18,6 +18,6 @@ class ApiRepository {
 //          200, '', StrategyModel.fromJson(response.data));
 //    }
     return NetResponse(
-        response.statusCode, response.statusMessage, response.data);
+        response.statusCode, response.statusMessage, StrategyModel.fromJson(response.data));
   }
 }

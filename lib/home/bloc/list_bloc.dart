@@ -14,12 +14,10 @@ class ListBloc extends CommonBloc<ListEvent, ListState, StrategyModel> {
 
   ListBloc();
 
-  @override
-  CommonState get initialState => Loading();
 
   @override
   CommonState parseResult(NetResponse<StrategyModel> reponse) {
-    if (reponse.data.result != null && reponse.data.result.stat == 1) {
+    if (reponse.data.result != null && reponse.data.result.stat == "1") {
       currentPage = 0;
       return ListLoaded(reponse.data.result.strategy);
     }
