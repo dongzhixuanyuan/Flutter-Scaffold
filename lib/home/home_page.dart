@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:travelflutter/bloc/common_event.dart';
+import 'package:travelflutter/bloc/common_state.dart';
 import 'package:travelflutter/home/bloc/bloc.dart';
 import 'package:travelflutter/res/resources.dart';
 import 'package:bloc/bloc.dart';
@@ -21,7 +23,7 @@ class _HomePageState extends State<HomePage>
   void initState() {
     super.initState();
     bloc = ListBloc();
-    bloc.add(ReloadEvent("fff"));
+    bloc.add(ReloadEvent());
   }
 
   @override
@@ -56,7 +58,7 @@ class _HomePageState extends State<HomePage>
             builder: (context, state) {
               if (state is Loading) {
                 return Center(child: CircularProgressIndicator());
-              } else if (state is Loaded) {
+              } else if (state is ListLoaded) {
                 return ListView.builder(
                   itemBuilder: (BuildContext context, int index) {
                     return Text('第$index条攻略', style: TextStyles.textDark14);

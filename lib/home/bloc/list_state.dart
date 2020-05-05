@@ -1,29 +1,30 @@
 import 'package:equatable/equatable.dart';
+import 'package:travelflutter/bloc/common_state.dart';
+import 'package:travelflutter/net/common_net_response.dart';
 
-abstract class ListState extends Equatable {
+import 'list_bloc.dart';
+
+class ListState extends CommonState {
   const ListState();
 
   @override
   List<Object> get props => [];
 }
 
-class Loading extends ListState {}
+class ListLoaded extends ListState {
+  final int page, totalPage, totalCount;
+  final List<int> data;
 
-class Loaded extends ListState {
-  final Object result;
-  final int page,totalPage,totalCount;
-  const Loaded(this.result,this.page,this.totalPage,this.totalCount);
-
-  @override
-  List<Object> get props => [result,page,totalPage,totalCount];
+  const ListLoaded(this.data, this.page, this.totalPage, this.totalCount);
 
   @override
-  String toString() => 'Loaded { items: ${result.toString()} }';
+  List<Object> get props => [data, page, totalPage, totalCount];
+
+  @override
+  String toString() {
+    return super.toString() + 'ListLoaded { items: ${data.toString()} }';
+  }
 }
 
 //上拉加载，发现已经到达最后一页
-class NoMoreWord extends ListState{
-
-}
-
-class Failure extends ListState {}
+class NoMoreWord extends ListState {}

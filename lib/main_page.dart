@@ -6,6 +6,7 @@ import 'package:travelflutter/res/resources.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:travelflutter/user/user_info.dart';
 
+import 'bloc/simple_bloc_delegate.dart';
 import 'home/bloc/bloc.dart';
 
 class MainPage extends StatefulWidget {

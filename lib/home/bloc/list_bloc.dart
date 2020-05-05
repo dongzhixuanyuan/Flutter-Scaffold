@@ -1,10 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travelflutter/bloc/bloc.dart';
+import 'package:travelflutter/bloc/common_state.dart';
+import 'package:travelflutter/net/common_net_response.dart';
 
 import 'list_event.dart';
 import 'list_state.dart';
 
-class ListBloc extends Bloc<ListEvent, ListState> {
+class ListResultModel {
+  final List<int> content;
+
+  const ListResultModel(this.content);
+}
+
+class ListBloc extends CommonBloc<ListEvent, ListState,ListResultModel> {
   int currentPage = 0;
   static int patchSize = 50;
   int totalPage = 0;
@@ -12,63 +20,34 @@ class ListBloc extends Bloc<ListEvent, ListState> {
   ListBloc();
 
   @override
-  ListState get initialState => Loading();
+  CommonState get initialState => Loading();
 
   @override
-  Stream<ListState> mapEventToState(ListEvent event) async* {
-//    if (event is ReloadEvent) {
-//      currentPage = 0;
-//      yield Loading();
-//      final responseModel =
-//          await repository.fetchData(grade, domain, currentPage, patchSize);
-//      if (responseModel == null || responseModel.code != 200) {
-//        yield Failure();
-//      } else {
-//        totalCount = responseModel.data.total;
-//        totalPage = responseModel.data.totalPage;
-//        eventBus.fire(LexileBottomSliderEvent(domain, totalCount,
-//            responseModel.data.page, responseModel.data.totalPage));
-//        yield Loaded(responseModel.data, responseModel.data.page,
-//            responseModel.data.totalPage, totalCount);
-//      }
-//    } else if (event is LoadMoreEvent) {
-//      var tmp = currentPage + 1;
-//      if (tmp >= totalPage) {
-//        //最后一页了
-//        yield NoMoreWord();
-//      } else {
-//        currentPage++;
-//        List<WordDetail> preloaded =
-//            List<WordDetail>.from((state as Loaded).result.data).toList();
-//        final responseModel =
-//            await repository.fetchData(grade, domain, currentPage, patchSize);
-//        if (responseModel == null || responseModel.code != 200) {
-//          yield Loaded((state as Loaded).result, --currentPage,
-//              (state as Loaded).totalPage, totalCount);
-//        } else {
-//          var result = preloaded + responseModel.data.data;
-//          responseModel.data.data = result;
-//          eventBus.fire(LexileBottomSliderEvent(domain, totalCount,
-//              responseModel.data.page, responseModel.data.totalPage));
-//          yield Loaded(responseModel.data, responseModel.data.page,
-//              responseModel.data.totalPage, totalCount);
-//        }
-//      }
-//    } else if (event is LoadPageEvent) {
-//      if (event.page == currentPage) {
-//        yield NoNeedRefresh();
-//      } else {
-//        yield Loading();
-//        currentPage = event.page;
-//        final responseModel =
-//            await repository.fetchData(grade, domain, currentPage, patchSize);
-//        if (responseModel == null || responseModel.code != 200) {
-//          yield Failure();
-//        } else {
-//          yield Loaded(responseModel.data, responseModel.data.page,
-//              responseModel.data.totalPage, totalCount);
-//        }
-//      }
-//    }
+  ListState parseResult(NetResponse) {
+    return null;
+  }
+
+  @override
+  Future<NetResponse<ListResultModel>> reloadData() async {
+    // TODO: implement reloadData
+    return null;
+  }
+
+  @override
+  Future<ListState> mapStateToEventImp(ListEvent event) async {
+    if (event is LoadMoreEvent) {
+      var tmp = currentPage + 1;
+      if (tmp >= totalPage) {
+        //最后一页了
+        return NoMoreWord();
+      } else {
+        currentPage++;
+        List<int> preloaded =
+            List<int>.from((state as ListLoaded).data).toList();
+        final responseModel = await reloadData();
+        preloaded.addAll(responseModel.data.content);
+        return ListLoaded(preloaded,0,10,100);
+      }
+    }
   }
 }
