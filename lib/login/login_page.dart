@@ -128,15 +128,27 @@ class _LoginPageState extends State<LoginPage> {
               onTap: () async {
                 if (userNameController?.text.isNotEmpty &&
                     passWordController?.text.isNotEmpty) {
-                  var response = await ApiRepository.login(
-                      userNameController?.text, passWordController?.text, () {
-                    Toast.show('登录失败，请检查用户名和密码', context);
+                  Future(() {
+                    return ApiRepository.loginPost(
+                        userNameController?.text, passWordController?.text);
+                  }).then((success) async {
+                    if(!success){
+                      Toast.show('登录失败，请检查用户名和密码', context);
+                      return;
+                    }
+                    var response = await ApiRepository.login(
+                        userNameController?.text, passWordController?.text, () {
+                      Toast.show('登录失败，请检查用户名和密码', context);
+                    });
+                    if (response.code == 200 &&
+                        response.data.result.stat == '1') {
+                      Toast.show('登录成功', context);
+                      MineUser.user = response.data.result.login.first;
+                      TravelRouter.navigateTo(context, TravelRouter.main);
+                    }else {
+                      Toast.show('登录失败，请检查用户名和密码', context);
+                    }
                   });
-                  if (response.code == 200 &&
-                      response.data.result.stat == '1') {
-                    Toast.show('登录成功', context);
-                    MineUser.user = response.data.result.login.first;
-                  }
                 } else {
                   Toast.show('用户名和密码不能为空', context);
                 }

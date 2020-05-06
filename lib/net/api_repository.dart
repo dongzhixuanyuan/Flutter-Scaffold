@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:travelflutter/home/model/strategy_model.dart';
@@ -32,12 +31,15 @@ class ApiRepository {
     return NetResponse(response, (response) => success);
   }
 
-  static Future<NetResponse<UserModel>> login(
-      String userName, String password, onError) async {
+  static Future<bool> loginPost(String userName, String password) async {
     var prePost = await HttpManager.instance.post(Api.SetLogin,
         data: {'username': userName, 'password': password},
-        options: Options(contentType: Headers.formUrlEncodedContentType),
-        onError: onError);
+        options: Options(contentType: Headers.formUrlEncodedContentType));
+    return prePost.statusCode == 200;
+  }
+
+  static Future<NetResponse<UserModel>> login(
+      String userName, String password, onError) async {
     var response = await HttpManager.instance.get(Api.GetLogin);
     debugPrint("${response.statusCode},${response.data.toString()}");
     return NetResponse(
