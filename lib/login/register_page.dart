@@ -1,11 +1,12 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:travelflutter/common/customToast.dart';
+import 'package:travelflutter/net/api_repository.dart';
 import 'package:travelflutter/res/colors.dart';
 import 'package:travelflutter/res/styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:travelflutter/router/routers.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -194,9 +195,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   Toast.show("输入不能为空，且密码要一致。", context);
                   return;
                 }
-
-
-
+                ApiRepository.register(userNameController?.text,
+                    passWordController?.text, phoneNumController?.text, (e) {
+                  Toast.show('注册失败', context);
+                }).then((response) {
+                  if (response.data) {
+                    Navigator.pop(context,{'name':userNameController?.text,'password':passWordController?.text});
+//                    TravelRouter.navigateTo(context, TravelRouter.login);
+                  }
+                });
               },
               child: Container(
                   width: 300.w,
@@ -218,8 +225,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   bool _verifyInput() {
     if (userNameController?.text.isNotEmpty &&
-        passWordController?.text.isNotEmpty
-        && confirmPassWordController?.text.isNotEmpty &&
+        passWordController?.text.isNotEmpty &&
+        confirmPassWordController?.text.isNotEmpty &&
         phoneNumController?.text.isNotEmpty) {
       if (passWordController?.text == confirmPassWordController?.text) {
         return true;

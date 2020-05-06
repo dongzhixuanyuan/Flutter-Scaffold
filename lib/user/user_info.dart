@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:travelflutter/application.dart';
+import 'package:travelflutter/common/shared_preference_key.dart';
 import 'package:travelflutter/res/colors.dart';
 import 'package:travelflutter/res/resources.dart';
 import 'package:travelflutter/router/routers.dart';
@@ -60,7 +61,12 @@ class UserInfoPage extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     //todo 退出登录的操作。
-                    Application.router.navigateTo(context, TravelRouter.login);
+                    Application.sharedPreference().then((sp){
+                      sp.remove(SharedPreferenceKeys.KEY_USER_NAME);
+                      sp.remove(SharedPreferenceKeys.KEY_PASS_WORD);
+                    }).then((success){
+                      Application.router.navigateTo(context, TravelRouter.login);
+                    });
                   },
                   child: Container(
                       width: 300.w,

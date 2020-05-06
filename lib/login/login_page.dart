@@ -144,7 +144,12 @@ class _LoginPageState extends State<LoginPage> {
                         response.data.result.stat == '1') {
                       Toast.show('登录成功', context);
                       MineUser.user = response.data.result.login.first;
-                      TravelRouter.navigateTo(context, TravelRouter.main);
+                      TravelRouter.navigateTo(context, TravelRouter.main).then((value){
+                        var name = (value as Map)['name'];
+                        var password = (value as Map)['password'];
+                        userNameController?.text = name;
+                        passWordController?.text =password;
+                      });
                     }else {
                       Toast.show('登录失败，请检查用户名和密码', context);
                     }

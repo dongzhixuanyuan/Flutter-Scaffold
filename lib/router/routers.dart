@@ -9,6 +9,8 @@ import 'package:travelflutter/application.dart';
 import 'package:travelflutter/router/router_handlers.dart';
 
 class TravelRouter {
+  static Router srouter;
+
   static const String login = "/login";
   static const String root = "/";
   static const String home = "/home";
@@ -18,6 +20,7 @@ class TravelRouter {
   static const String register = "/register";
 
   static void configureRoutes(Router router) {
+    srouter = router;
     router.define(login, handler: loginHandler);
     router.define(register, handler: registerHandler);
     router.define(root, handler: splashHandler);
