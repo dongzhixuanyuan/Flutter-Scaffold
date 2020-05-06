@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:travelflutter/application.dart';
 import 'package:travelflutter/common/customToast.dart';
+import 'package:travelflutter/common/shared_preference_key.dart';
 import 'package:travelflutter/net/api_repository.dart';
 import 'package:travelflutter/res/colors.dart';
 import 'package:travelflutter/res/styles.dart';
@@ -132,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                     return ApiRepository.loginPost(
                         userNameController?.text, passWordController?.text);
                   }).then((success) async {
-                    if(!success){
+                    if (!success) {
                       Toast.show('登录失败，请检查用户名和密码', context);
                       return;
                     }
@@ -144,13 +145,11 @@ class _LoginPageState extends State<LoginPage> {
                         response.data.result.stat == '1') {
                       Toast.show('登录成功', context);
                       MineUser.user = response.data.result.login.first;
-                      TravelRouter.navigateTo(context, TravelRouter.main).then((value){
-                        var name = (value as Map)['name'];
-                        var password = (value as Map)['password'];
-                        userNameController?.text = name;
-                        passWordController?.text =password;
-                      });
-                    }else {
+                      var sp = await Application.sharedPreference();
+                      sp.setString(SharedPreferenceKeys.KEY_USER_NAME, MineUser.user.username);
+                      sp.setString(SharedPreferenceKeys.KEY_PASS_WORD, MineUser.user.password);
+                      TravelRouter.navigateTo(context, TravelRouter.main);
+                    } else {
                       Toast.show('登录失败，请检查用户名和密码', context);
                     }
                   });
@@ -176,7 +175,13 @@ class _LoginPageState extends State<LoginPage> {
             GestureDetector(
               onTap: () {
                 //跳转到注册页面
-                TravelRouter.navigateTo(context, TravelRouter.register);
+                TravelRouter.navigateTo(context, TravelRouter.register)
+                    .then((value) {
+                  var name = (value as Map)['name'];
+                  var password = (value as Map)['password'];
+                  userNameController?.text = name;
+                  passWordController?.text = password;
+                });
               },
               child: Text(
                 '注册',

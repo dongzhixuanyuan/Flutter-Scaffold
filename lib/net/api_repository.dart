@@ -46,6 +46,18 @@ class ApiRepository {
         response, (response) => UserModel.fromJson(response.data));
   }
 
+//  修改密码接口
+  static Future<NetResponse<bool>> updatePassword(
+      String userName, String password, onError) async {
+    var response = await HttpManager.instance.get(Api.UpdatePassword);
+    debugPrint("${response.statusCode},${response.data.toString()}");
+    bool success = response.statusCode == 200;
+    return NetResponse(
+        response, (response) => success);
+  }
+
+
+
   //获取评论
   static Future<NetResponse<CommentModel>> getComments() async {
     var prePost = await HttpManager.instance.post(Api.SetEvaluate);

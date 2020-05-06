@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:travelflutter/home/home_page.dart';
 import 'package:travelflutter/home_detail/bloc/home_detail_page.dart';
 import 'package:travelflutter/login/login_page.dart';
+import 'package:travelflutter/login/modify_password.dart';
 import 'package:travelflutter/login/register_page.dart';
 import 'package:travelflutter/main_page.dart';
 import 'package:travelflutter/splash_page.dart';
@@ -61,4 +62,10 @@ var detailHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, dynamic> params) {
       initScreenUtil(context);
       return StrategyDetailPage(params['data']?.first);
+    });
+
+var modifyPasswordHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      initScreenUtil(context);
+      return ModifyPasswordPage();
     });

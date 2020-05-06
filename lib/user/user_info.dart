@@ -34,6 +34,9 @@ class UserInfoPage extends StatelessWidget {
               ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 40),
                 title: Text('修改密码'),
+                onTap: (){
+                  TravelRouter.navigateTo(context,TravelRouter.modifyPassword);
+                },
                 trailing: Icon(Icons.arrow_forward_ios),
               ),
               ListTile(
