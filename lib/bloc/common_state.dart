@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-abstract class CommonState extends Equatable {
+abstract class CommonState<R> extends Equatable {
   const CommonState();
 
   @override
@@ -10,5 +10,11 @@ abstract class CommonState extends Equatable {
 class Loading extends CommonState {}
 
 class Failure extends CommonState {}
+
+class Loaded<R> extends CommonState<R> {
+   R data;
+
+   Loaded(this.data);
+}
 
 

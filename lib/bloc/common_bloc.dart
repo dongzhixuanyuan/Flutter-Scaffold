@@ -19,7 +19,12 @@ abstract class CommonBloc<E extends CommonEvent, S extends CommonState, R>
       if (response == null) {
         yield Failure();
       } else {
-        yield parseResult(response);
+        var tmp = parseResult(response);
+        if(tmp != null){
+          yield tmp;
+        } else {
+          yield Loaded<R>(response.data);
+        }
       }
     } else {
       yield await mapStateToEventImp(event);
@@ -30,8 +35,12 @@ abstract class CommonBloc<E extends CommonEvent, S extends CommonState, R>
   Future<NetResponse<R>> reloadData();
 
   //子类负责解析网络返回数据
-  CommonState parseResult(NetResponse<R> reponse);
+  CommonState parseResult(NetResponse<R> reponse) {
+    return null;
+  }
 
   //子类扩展的event和state
-  Future<S> mapStateToEventImp(E event);
+  Future<S> mapStateToEventImp(E event){
+    return null;
+  }
 }

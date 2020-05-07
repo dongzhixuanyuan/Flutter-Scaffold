@@ -6,6 +6,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:travelflutter/common/comment_view.dart';
 import 'package:travelflutter/home/home_page.dart';
 import 'package:travelflutter/home_detail/bloc/home_detail_page.dart';
 import 'package:travelflutter/login/login_page.dart';
@@ -68,4 +69,10 @@ var modifyPasswordHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, dynamic> params) {
       initScreenUtil(context);
       return ModifyPasswordPage();
+    });
+
+var commentViewHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      initScreenUtil(context);
+      return CommonCommentView(params['title']?.first);
     });

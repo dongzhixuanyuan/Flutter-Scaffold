@@ -37,6 +37,11 @@ void main() {
     var data = await ApiRepository.getComments();
     assert(data.data.result.stat == '1');
   });
+
+  test("addComments", () async {
+    var data = await ApiRepository.addComments('liudong', 'image', "非常好", "张家界");
+    assert(data.data);
+  });
   test("getTrainTickets", () async {
     var data = await ApiRepository.getTrainTickets();
     assert(data.data.result.stat == '1');

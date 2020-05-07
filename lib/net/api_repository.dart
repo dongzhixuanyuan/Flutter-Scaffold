@@ -52,11 +52,8 @@ class ApiRepository {
     var response = await HttpManager.instance.get(Api.UpdatePassword);
     debugPrint("${response.statusCode},${response.data.toString()}");
     bool success = response.statusCode == 200;
-    return NetResponse(
-        response, (response) => success);
+    return NetResponse(response, (response) => success);
   }
-
-
 
   //获取评论
   static Future<NetResponse<CommentModel>> getComments() async {
@@ -67,6 +64,28 @@ class ApiRepository {
     }
     return NetResponse(
         response, (response) => CommentModel.fromJson(response.data));
+  }
+
+//  String username = req.getParameter("username");//用户名
+//  String image = req.getParameter("image");//用户头像
+//  String content = req.getParameter("content");//评价内容
+//  String strategyname = req.getParameter("strategyname");
+
+  //插入评论
+  static Future<NetResponse<bool>> addComments(String userName,
+      String image, String content, String strategyname) async {
+    var response = await HttpManager.instance.post(
+      Api.SetInsertEvaluate,
+      data: {
+        'username': userName,
+        'image': image,
+        'content': content,
+        'strategyname': strategyname
+      },
+      options: Options(contentType: Headers.formUrlEncodedContentType),
+    );
+    bool success = response.statusCode == 200;
+    return NetResponse(response, (response) => success);
   }
 
   //获取火车票
