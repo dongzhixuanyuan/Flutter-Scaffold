@@ -20,6 +20,7 @@ class TravelRouter {
   static const String register = "/register";
   static const String modifyPassword = "/modifyPassword";
   static const String comment = "/comment";
+  static const String ticket = "/ticket";
 
   static void configureRoutes(Router router) {
     srouter = router;
@@ -32,6 +33,7 @@ class TravelRouter {
     router.define(detail, handler: detailHandler);
     router.define(modifyPassword, handler: modifyPasswordHandler);
     router.define(comment , handler: commentViewHandler);
+    router.define(comment , handler: ticketHandler);
 
   }
 

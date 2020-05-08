@@ -14,65 +14,70 @@ import 'package:travelflutter/login/modify_password.dart';
 import 'package:travelflutter/login/register_page.dart';
 import 'package:travelflutter/main_page.dart';
 import 'package:travelflutter/splash_page.dart';
+import 'package:travelflutter/tickets/ticket_page.dart';
 import 'package:travelflutter/user/user_info.dart';
-
 
 void initScreenUtil(BuildContext context) {
   ScreenUtil.init(context,
       width: 375, height: 670, allowFontScaling: false); //根据UI稿件设置屏幕基准
 }
 
+var splashHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return SplashPage();
+});
 
-var splashHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-      initScreenUtil(context);
-      return SplashPage();
-    });
+var loginHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return LoginPage();
+});
 
-var loginHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-      initScreenUtil(context);
-      return LoginPage();
-    });
+var registerHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return RegisterPage();
+});
 
-var registerHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-      initScreenUtil(context);
-      return RegisterPage();
-    });
+var homeHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return HomePage();
+});
 
-var homeHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-      initScreenUtil(context);
-      return HomePage();
-    });
+var mainHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return MainPage();
+});
 
-var mainHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-      initScreenUtil(context);
-      return MainPage();
-    });
+var ticketHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return TicketPage();
+});
 
-var userInfoHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-      initScreenUtil(context);
-      return UserInfoPage();
-    });
+var userInfoHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return UserInfoPage();
+});
 
-var detailHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-      initScreenUtil(context);
-      return StrategyDetailPage(params['data']?.first);
-    });
+var detailHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return StrategyDetailPage(params['data']?.first);
+});
 
-var modifyPasswordHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-      initScreenUtil(context);
-      return ModifyPasswordPage();
-    });
+var modifyPasswordHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return ModifyPasswordPage();
+});
 
-var commentViewHandler = Handler(
-    handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-      initScreenUtil(context);
-      return CommonCommentView(params['title']?.first);
-    });
+var commentViewHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return CommonCommentView(params['title']?.first);
+});

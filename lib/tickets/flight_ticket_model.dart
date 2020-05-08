@@ -28,7 +28,7 @@ part 'flight_ticket_model.g.dart';
   String stat;
 
   @JsonKey(name: 'train')
-  List<Train> train;
+  List<Flight> train;
 
   Result(this.stat,this.train,);
 
@@ -40,7 +40,7 @@ part 'flight_ticket_model.g.dart';
 
   
 @JsonSerializable()
-  class Train extends Object {
+  class Flight extends Object {
 
   @JsonKey(name: 'firstprice')
   String firstprice;
@@ -81,9 +81,9 @@ part 'flight_ticket_model.g.dart';
   @JsonKey(name: 'id')
   int id;
 
-  Train(this.firstprice,this.seatcount,this.economyprice,this.startplace,this.flightnumber,this.endplace,this.endtime,this.economyclass,this.flightplace,this.starttime,this.startdate,this.firstclass,this.id,);
+  Flight(this.firstprice,this.seatcount,this.economyprice,this.startplace,this.flightnumber,this.endplace,this.endtime,this.economyclass,this.flightplace,this.starttime,this.startdate,this.firstclass,this.id,);
 
-  factory Train.fromJson(Map<String, dynamic> srcJson) => _$TrainFromJson(srcJson);
+  factory Flight.fromJson(Map<String, dynamic> srcJson) => _$TrainFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$TrainToJson(this);
 

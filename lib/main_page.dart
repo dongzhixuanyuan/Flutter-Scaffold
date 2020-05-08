@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travelflutter/home/home_page.dart';
 import 'package:travelflutter/res/resources.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:travelflutter/tickets/ticket_page.dart';
 import 'package:travelflutter/user/user_info.dart';
 
 import 'bloc/simple_bloc_delegate.dart';
@@ -45,9 +46,7 @@ class _MainPageState extends State<MainPage>
                   },
                   children: <Widget>[
                     HomePage(),
-                    Container(
-                      child: Text('购票'),
-                    ),
+                    TicketPage(),
                     UserInfoPage()
                   ],
                 ),
