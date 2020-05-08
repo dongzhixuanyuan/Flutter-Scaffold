@@ -109,4 +109,39 @@ class ApiRepository {
     return NetResponse(
         response, (response) => FlightTicketModel.fromJson(response.data));
   }
+
+
+//  String trainclass = req.getParameter("trainclass");//车次
+//  String starttime = req.getParameter("starttime");//出发时间
+//  String endtime = req.getParameter("endtime");//达到时间
+//  String price = req.getParameter("price");//价格
+//  String count = req.getParameter("count");//购票数量
+//  String username = req.getParameter("username");//用户名
+//  String seatnumber = req.getParameter("seatnumber");//座位号
+  static Future<NetResponse<bool>> buyTrainFlightTicket(String trainclass,String starttime,
+      String endtime,String price,String count,String username,String seatnumber) async {
+    var response = await HttpManager.instance.post(
+      Api.SetInsertEvaluate,
+      data: {
+        'trainclass': trainclass,
+        'starttime': starttime,
+        'endtime': endtime,
+        'price': price,
+        'count': count,
+        'username': username,
+        'seatnumber': seatnumber
+      },
+      options: Options(contentType: Headers.formUrlEncodedContentType),
+    );
+    bool success = response.statusCode == 200;
+    return NetResponse(response, (response) => success);
+  }
+
+
+
+
+
+
+
+
 }

@@ -1,14 +1,18 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travelflutter/bloc/bloc.dart';
+import 'package:travelflutter/common/customToast.dart';
+import 'package:travelflutter/net/api_repository.dart';
 import 'package:travelflutter/res/colors.dart';
 import 'package:travelflutter/res/styles.dart';
 import 'package:travelflutter/tickets/flight_ticket_model.dart';
 import 'package:travelflutter/tickets/tickets_bloc.dart';
 import 'package:travelflutter/tickets/train_ticket_model.dart';
+import 'package:travelflutter/user/user.dart';
 
 class TicketPage extends StatefulWidget {
   @override
@@ -65,8 +69,7 @@ class _TicketPageState extends State<TicketPage>
           labelColor: Colours.text_blue,
           onTap: (int index) {
             transportationType.add(index == 0);
-            setState(() {
-            });
+            setState(() {});
           },
           indicatorColor: Colors.transparent,
         ),
@@ -87,7 +90,9 @@ class _TicketPageState extends State<TicketPage>
                 bloc: trainBloc,
                 builder: (context, state) {
                   if (state is Loading) {
-                    return Container(alignment: Alignment.center,child: CircularProgressIndicator());
+                    return Container(
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator());
                   } else if (state is Failure) {
                     return Container(
                       child: Text('加载失败'),
@@ -117,7 +122,9 @@ class _TicketPageState extends State<TicketPage>
                 bloc: flightBloc,
                 builder: (context, state) {
                   if (state is Loading) {
-                    return Container(alignment: Alignment.center,child: CircularProgressIndicator());
+                    return Container(
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator());
                   } else if (state is Failure) {
                     return Container(
                       child: Text('加载失败'),
@@ -137,6 +144,7 @@ class _TicketPageState extends State<TicketPage>
                           );
                         });
                   }
+                  return SizedBox();
                 }),
           );
         }
@@ -156,31 +164,79 @@ class TrainTicketItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Text(bean.starttime),
-                Text(bean.startplace),
-                Text(bean.secendclass)
-              ],
-            ),
-            Column(
-              children: <Widget>[Text(bean.trainnumber), Text(bean.firstclass)],
-            ),
-            Column(
-              children: <Widget>[
-                Text(bean.endtime),
-                Text(bean.endplace),
-                Text(bean.noclass)
-              ],
-            ),
-            Text(bean.secendprice)
-          ],
+    return GestureDetector(
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Text(bean.starttime),
+                  Text(bean.startplace),
+                  Text(bean.secendclass)
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Text(bean.trainnumber),
+                  Text(bean.firstclass)
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Text(bean.endtime),
+                  Text(bean.endplace),
+                  Text(bean.noclass)
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Text(bean.secendprice),
+                  MaterialButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('确认购买车票？'),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: Text('取消'),
+                                  onPressed: () => Navigator.pop(context),
+                                ),
+                                FlatButton(
+                                  child: Text('确认'),
+                                  onPressed: () async {
+                                    var result = await ApiRepository
+                                        .buyTrainFlightTicket(
+                                            bean.secendclass,
+                                            bean.starttime,
+                                            bean.endtime,
+                                            bean.secendprice,
+                                            1.toString(),
+                                            MineUser.user.username,
+                                            Random().nextInt(500).toString());
+                                    if (result.data) {
+                                      Toast.show('购买成功!', context);
+                                    } else {
+                                      Toast.show('购买失败!', context);
+                                    }
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                            );
+                          });
+                    },
+                    color: Colors.amber,
+                    child: Text('购票'),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -217,7 +273,51 @@ class FlightTicketItem extends StatelessWidget {
                 Text(bean.firstclass)
               ],
             ),
-            Text(bean.economyprice)
+            Column(
+              children: <Widget>[
+                Text(bean.economyprice),
+                MaterialButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('确认购买飞机票？'),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('取消'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                              FlatButton(
+                                child: Text('确认'),
+                                onPressed: () async {
+                                  var result = await ApiRepository
+                                      .buyTrainFlightTicket(
+                                      bean.economyclass,
+                                      bean.starttime,
+                                      bean.endtime,
+                                      bean.economyprice,
+                                      1.toString(),
+                                      MineUser.user.username,
+                                      Random().nextInt(500).toString());
+                                  if (result.data) {
+                                    Toast.show('购买成功!', context);
+                                  } else {
+                                    Toast.show('购买失败!', context);
+                                  }
+                                  Navigator.pop(context);
+                                },
+                              )
+                            ],
+                          );
+                        });
+                  },
+                  color: Colors.amber,
+                  child: Text('购票'),
+                )
+              ],
+            )
+
           ],
         ),
       ),
