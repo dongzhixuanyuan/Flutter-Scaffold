@@ -15,7 +15,7 @@ abstract class CommonBloc<E extends CommonEvent, S extends CommonState, R>
   Stream<CommonState> mapEventToState(CommonEvent event) async* {
     if (event is ReloadEvent) {
       yield Loading();
-      final response = await reloadData();
+      final response = await reloadData(event);
       if (response == null) {
         yield Failure();
       } else {
@@ -32,7 +32,7 @@ abstract class CommonBloc<E extends CommonEvent, S extends CommonState, R>
   }
 
   //子类去实现加载数据的具体实现
-  Future<NetResponse<R>> reloadData();
+  Future<NetResponse<R>> reloadData(CommonEvent event);
 
   //子类负责解析网络返回数据
   CommonState parseResult(NetResponse<R> reponse) {

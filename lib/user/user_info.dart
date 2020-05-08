@@ -43,6 +43,7 @@ class UserInfoPage extends StatelessWidget {
                 contentPadding: EdgeInsets.symmetric(horizontal: 40),
                 title: Text('我的订单'),
                 trailing: Icon(Icons.arrow_forward_ios),
+                onTap: ()=>TravelRouter.navigateTo(context, TravelRouter.orders),
               ),
               ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 40),

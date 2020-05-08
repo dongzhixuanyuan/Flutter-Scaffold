@@ -50,4 +50,9 @@ void main() {
     var data = await ApiRepository.getFlightTickets();
     assert(data.data.result.stat == '1');
   });
+
+  test("getOrders", () async {
+    var data = await ApiRepository.getOrders('wer');
+    assert(data.data !=null);
+  });
 }

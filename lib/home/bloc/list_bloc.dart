@@ -25,11 +25,12 @@ class ListBloc extends CommonBloc<ListEvent, ListState, StrategyModel> {
   }
 
   @override
-  Future<NetResponse<StrategyModel>> reloadData() async {
+  Future<NetResponse<StrategyModel>> reloadData(CommonEvent event) async {
     return await ApiRepository.getStrategyData((e) {
       print("ListBloc:reloadData error");
     });
   }
+
 
   @override
   Future<ListState> mapStateToEventImp(ListEvent event) async {
@@ -42,7 +43,7 @@ class ListBloc extends CommonBloc<ListEvent, ListState, StrategyModel> {
         currentPage++;
         List<Strategy> preloaded =
             List<Strategy>.from((state as ListLoaded).data).toList();
-        final responseModel = await reloadData();
+        final responseModel = await reloadData(event);
         preloaded.addAll(responseModel.data.result.strategy);
         return ListLoaded(preloaded);
       }

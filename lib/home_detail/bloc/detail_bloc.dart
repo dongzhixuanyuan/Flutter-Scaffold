@@ -11,7 +11,7 @@ class CommentBloc extends CommonBloc<CommonEvent,CommonState,CommentModel>{
 
 
   @override
-  Future<NetResponse<CommentModel>> reloadData() {
+  Future<NetResponse<CommentModel>> reloadData(CommonEvent event) {
 
     return ApiRepository.getComments();
   }

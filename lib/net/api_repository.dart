@@ -5,6 +5,7 @@ import 'package:travelflutter/home_detail/bloc/comment_model.dart';
 import 'package:travelflutter/net/common_net_response.dart';
 import 'package:travelflutter/tickets/flight_ticket_model.dart';
 import 'package:travelflutter/tickets/train_ticket_model.dart';
+import 'package:travelflutter/user/order/order_model.dart';
 import 'package:travelflutter/user/user_model.dart';
 
 import 'api.dart';
@@ -121,7 +122,7 @@ class ApiRepository {
   static Future<NetResponse<bool>> buyTrainFlightTicket(String trainclass,String starttime,
       String endtime,String price,String count,String username,String seatnumber) async {
     var response = await HttpManager.instance.post(
-      Api.SetInsertEvaluate,
+      Api.SetInsertOrders,
       data: {
         'trainclass': trainclass,
         'starttime': starttime,
@@ -137,7 +138,24 @@ class ApiRepository {
     return NetResponse(response, (response) => success);
   }
 
+//  String username = req.getParameter("username");//用户名
 
+
+  //获取飞机票
+  static Future<NetResponse<OrderModel>> getOrders(String username) async {
+    var prePost = await HttpManager.instance.post(Api.SetOrders,
+    data: {
+      'username': username
+    },
+      options: Options(contentType: Headers.formUrlEncodedContentType),
+    );
+    var response = await HttpManager.instance.get(Api.GetOrders);
+    if (response.statusCode != 200) {
+      return null;
+    }
+    return NetResponse(
+        response, (response) => OrderModel.fromJson(response.data));
+  }
 
 
 

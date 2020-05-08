@@ -15,6 +15,7 @@ import 'package:travelflutter/login/register_page.dart';
 import 'package:travelflutter/main_page.dart';
 import 'package:travelflutter/splash_page.dart';
 import 'package:travelflutter/tickets/ticket_page.dart';
+import 'package:travelflutter/user/order/orders_page.dart';
 import 'package:travelflutter/user/user_info.dart';
 
 void initScreenUtil(BuildContext context) {
@@ -80,4 +81,10 @@ var commentViewHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   initScreenUtil(context);
   return CommonCommentView(params['title']?.first);
+});
+
+var orderPageViewHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  initScreenUtil(context);
+  return OrderPage();
 });

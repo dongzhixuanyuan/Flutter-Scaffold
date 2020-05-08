@@ -6,7 +6,7 @@ import 'package:travelflutter/tickets/train_ticket_model.dart';
 
 class TrainBloc extends CommonBloc<CommonEvent, CommonState, TrainTicketModel> {
   @override
-  Future<NetResponse<TrainTicketModel>> reloadData() {
+  Future<NetResponse<TrainTicketModel>> reloadData(CommonEvent event) {
     return ApiRepository.getTrainTickets();
   }
 }
@@ -14,7 +14,7 @@ class TrainBloc extends CommonBloc<CommonEvent, CommonState, TrainTicketModel> {
 class FlightBloc
     extends CommonBloc<CommonEvent, CommonState, FlightTicketModel> {
   @override
-  Future<NetResponse<FlightTicketModel>> reloadData() {
+  Future<NetResponse<FlightTicketModel>> reloadData(CommonEvent event) {
     return ApiRepository.getFlightTickets();
   }
 }

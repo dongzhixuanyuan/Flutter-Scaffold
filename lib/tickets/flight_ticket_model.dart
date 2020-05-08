@@ -83,9 +83,9 @@ part 'flight_ticket_model.g.dart';
 
   Flight(this.firstprice,this.seatcount,this.economyprice,this.startplace,this.flightnumber,this.endplace,this.endtime,this.economyclass,this.flightplace,this.starttime,this.startdate,this.firstclass,this.id,);
 
-  factory Flight.fromJson(Map<String, dynamic> srcJson) => _$TrainFromJson(srcJson);
+  factory Flight.fromJson(Map<String, dynamic> srcJson) => _$FlightFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$TrainToJson(this);
+  Map<String, dynamic> toJson() => _$FlightToJson(this);
 
 }
 

@@ -29,7 +29,7 @@ Result _$ResultFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$ResultToJson(Result instance) =>
     <String, dynamic>{'stat': instance.stat, 'train': instance.train};
 
-Flight _$TrainFromJson(Map<String, dynamic> json) {
+Flight _$FlightFromJson(Map<String, dynamic> json) {
   return Flight(
       json['firstprice'] as String,
       json['seatcount'] as String,
@@ -46,7 +46,7 @@ Flight _$TrainFromJson(Map<String, dynamic> json) {
       json['id'] as int);
 }
 
-Map<String, dynamic> _$TrainToJson(Flight instance) => <String, dynamic>{
+Map<String, dynamic> _$FlightToJson(Flight instance) => <String, dynamic>{
       'firstprice': instance.firstprice,
       'seatcount': instance.seatcount,
       'economyprice': instance.economyprice,
