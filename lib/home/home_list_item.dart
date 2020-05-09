@@ -24,7 +24,7 @@ class HomeItem extends StatelessWidget {
         });
       },
       child: Container(
-        height: 100.h,
+        height: 140.h,
         color: Colors.white,
         child: Stack(
           alignment: AlignmentDirectional.centerStart,
@@ -41,14 +41,14 @@ class HomeItem extends StatelessWidget {
                   ),
                 )),
             Positioned(
-              top: 10.h,
+              top: 15.h,
               left: 120.w,
               child: Text(bean.title, style: TextStyles.textDark17),
             ),
             Positioned(
               top: 40.h,
               left: 120.w,
-              width: 170.w,
+              width: 240.w,
               child: Text(
                 bean.introduce,
                 style: TextStyles.textDark15,
@@ -57,13 +57,13 @@ class HomeItem extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 10.h  ,
+              bottom: 32.h  ,
               left: 120.w,
               child:Text(bean.place, style: TextStyles.textDark15),
             ),
             Positioned(
               top: 12.h,
-              right: 5.w  ,
+              right: 8.w  ,
               child:Text(bean.time, style: TextStyles.textDark15),
             ),
           ],

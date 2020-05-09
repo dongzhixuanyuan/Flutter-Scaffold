@@ -43,8 +43,21 @@ class ApiRepository {
       String userName, String password, onError) async {
     var response = await HttpManager.instance.get(Api.GetLogin);
     debugPrint("${response.statusCode},${response.data.toString()}");
-    return NetResponse(
-        response, (response) => UserModel.fromJson(response.data));
+    if (response.statusCode == 200 && response.data is Map) {
+      return NetResponse(
+          response, (response) => UserModel.fromJson(response.data));
+    }
+    return NetResponse(response, (response) => null);
+  }
+
+  static Future<Object> getAvartarImage(String username) async {
+    var prePost = await HttpManager.instance.post(
+      Api.SetSelectImage,
+      data: {'username': username},
+      options: Options(contentType: Headers.formUrlEncodedContentType),
+    );
+    var response = await HttpManager.instance.get(Api.GetSelectImage);
+    debugPrint(response.toString());
   }
 
 //  修改密码接口
@@ -67,14 +80,9 @@ class ApiRepository {
         response, (response) => CommentModel.fromJson(response.data));
   }
 
-//  String username = req.getParameter("username");//用户名
-//  String image = req.getParameter("image");//用户头像
-//  String content = req.getParameter("content");//评价内容
-//  String strategyname = req.getParameter("strategyname");
-
   //插入评论
-  static Future<NetResponse<bool>> addComments(String userName,
-      String image, String content, String strategyname) async {
+  static Future<NetResponse<bool>> addComments(String userName, String image,
+      String content, String strategyname) async {
     var response = await HttpManager.instance.post(
       Api.SetInsertEvaluate,
       data: {
@@ -111,7 +119,6 @@ class ApiRepository {
         response, (response) => FlightTicketModel.fromJson(response.data));
   }
 
-
 //  String trainclass = req.getParameter("trainclass");//车次
 //  String starttime = req.getParameter("starttime");//出发时间
 //  String endtime = req.getParameter("endtime");//达到时间
@@ -119,8 +126,14 @@ class ApiRepository {
 //  String count = req.getParameter("count");//购票数量
 //  String username = req.getParameter("username");//用户名
 //  String seatnumber = req.getParameter("seatnumber");//座位号
-  static Future<NetResponse<bool>> buyTrainFlightTicket(String trainclass,String starttime,
-      String endtime,String price,String count,String username,String seatnumber) async {
+  static Future<NetResponse<bool>> buyTrainFlightTicket(
+      String trainclass,
+      String starttime,
+      String endtime,
+      String price,
+      String count,
+      String username,
+      String seatnumber) async {
     var response = await HttpManager.instance.post(
       Api.SetInsertOrders,
       data: {
@@ -140,13 +153,11 @@ class ApiRepository {
 
 //  String username = req.getParameter("username");//用户名
 
-
   //获取飞机票
   static Future<NetResponse<OrderModel>> getOrders(String username) async {
-    var prePost = await HttpManager.instance.post(Api.SetOrders,
-    data: {
-      'username': username
-    },
+    var prePost = await HttpManager.instance.post(
+      Api.SetOrders,
+      data: {'username': username},
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );
     var response = await HttpManager.instance.get(Api.GetOrders);
@@ -156,10 +167,4 @@ class ApiRepository {
     return NetResponse(
         response, (response) => OrderModel.fromJson(response.data));
   }
-
-
-
-
-
-
 }

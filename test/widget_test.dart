@@ -17,6 +17,16 @@ void main() {
     throwsA(isStateError);
   }
 
+
+  test("get avartar iamge ", () async {
+    var data = await ApiRepository.getAvartarImage('wer');
+
+//    assert(data.code == 200);
+  });
+
+  return;
+
+
   test("get question article mock data", () async {
     var data = await ApiRepository.getStrategyData(onError);
     assert(data.code == 200);

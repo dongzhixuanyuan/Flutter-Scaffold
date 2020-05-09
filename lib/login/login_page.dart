@@ -141,8 +141,8 @@ class _LoginPageState extends State<LoginPage> {
                         userNameController?.text, passWordController?.text, () {
                       Toast.show('登录失败，请检查用户名和密码', context);
                     });
-                    if (response.code == 200 &&
-                        response.data.result.stat == '1') {
+                    if (response?.code == 200 &&
+                        response.data?.result?.stat == '1') {
                       Toast.show('登录成功', context);
                       MineUser.user = response.data.result.login.first;
                       var sp = await Application.sharedPreference();

@@ -8,7 +8,6 @@ import 'package:travelflutter/bloc/common_state.dart';
 import 'package:travelflutter/home/bloc/bloc.dart';
 import 'package:travelflutter/home/home_list_item.dart';
 import 'package:travelflutter/res/resources.dart';
-import 'package:bloc/bloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,7 +16,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
-
   ListBloc bloc;
 
   @override
@@ -38,11 +36,22 @@ class _HomePageState extends State<HomePage>
           height: topInsets,
         ),
         Container(
-          height: 150.h,
+          height: 180.h,
           child: Swiper(
             itemBuilder: (BuildContext context, int index) {
-              return new Image.network(
-                "http://via.placeholder.com/350x150",
+              if (index == 0) {
+                return Image.asset(
+                  'images/first.jpeg',
+                  fit: BoxFit.fill,
+                );
+              } else if (index == 1) {
+                return Image.asset(
+                  'images/second.jpeg',
+                  fit: BoxFit.fill,
+                );
+              }
+              return Image.asset(
+                'images/third.jpeg',
                 fit: BoxFit.fill,
               );
             },
@@ -52,7 +61,11 @@ class _HomePageState extends State<HomePage>
             duration: 1000,
           ),
         ),
-        Text('旅游攻略', style: TextStyles.textBoldDark26,textAlign:TextAlign.center ,),
+        Text(
+          '旅游攻略',
+          style: TextStyles.textBoldDark26,
+          textAlign: TextAlign.center,
+        ),
         Expanded(
           child: BlocBuilder(
             bloc: bloc,
@@ -65,7 +78,7 @@ class _HomePageState extends State<HomePage>
                     return HomeItem(state.data[index]);
                   },
                   itemCount: state.data.length,
-                  padding:EdgeInsets.only(top: 5.h) ,
+                  padding: EdgeInsets.only(top: 5.h),
                 );
               }
               return Center(child: Text("加载失败"));

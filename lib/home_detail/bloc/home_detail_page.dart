@@ -44,54 +44,66 @@ class _StrategyDetailPageState extends State<StrategyDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.bean.title,
-          textAlign: TextAlign.center,
+        appBar: AppBar(
+          title: Text(
+            widget.bean.title,
+            textAlign: TextAlign.center,
+          ),
         ),
-      ),
-      body: ListView(children: <Widget>[
-        Image.network(widget.bean.image),
-        Text(
-          widget.bean.title,
-          textAlign: TextAlign.center,
-          style: TextStyles.textBoldDark24,
-        ),
-        Text(
-          widget.bean.characteristic,
-          textAlign: TextAlign.center,
-        ),
-        BlocBuilder(
-          bloc: commentBloc,
-          builder: (context, state) {
-            if (state is Failure) {
+        body: ListView(children: <Widget>[
+          Image.network(widget.bean.image),
+          Text(
+            widget.bean.title,
+            textAlign: TextAlign.center,
+            style: TextStyles.textBoldDark24,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(
+
+              widget.bean.characteristic,
+              textAlign: TextAlign.left,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left:8.0,bottom: 20,top: 20),
+            child: Text(
+              '热门评论',style: TextStyles.textBoldDark24,
+            ),
+          ),
+          BlocBuilder(
+            bloc: commentBloc,
+            builder: (context, state) {
+              if (state is Failure) {
+                return Center(child: Text("加载失败"));
+              } else if (state is Loading) {
+                return Center(child: CircularProgressIndicator());
+              } else if (state is Loaded) {
+                return ListView.builder(
+                  itemBuilder: (context, index) {
+                    return CommentItem(
+                        (state.data as CommentModel).result.evaluate[index]);
+                  },
+                  itemCount:
+                      (state.data as CommentModel).result.evaluate.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                );
+              }
               return Center(child: Text("加载失败"));
-            } else if (state is Loading) {
-              return Center(child: CircularProgressIndicator());
-            } else if (state is Loaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  return CommentItem(
-                      (state.data as CommentModel).result.evaluate[index]);
-                },
-                itemCount: (state.data as CommentModel).result.evaluate.length,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-              );
-            }
-            return Center(child: Text("加载失败"));
-          },
-        ),
-      ]),
-      floatingActionButton: FloatingActionButton(
+            },
+          ),
+        ]),
+        floatingActionButton: FloatingActionButton(
           child: Icon(Icons.comment),
           onPressed: () => TravelRouter.navigateTo(
-              context, TravelRouter.comment,
-              params: {'title': widget.bean.title},
-              transition: TransitionType.inFromBottom).then((value){
-          commentBloc.add(ReloadEvent());
-      }),
-    ));
+                  context, TravelRouter.comment,
+                  params: {'title': widget.bean.title},
+                  transition: TransitionType.inFromBottom)
+              .then((value) {
+            commentBloc.add(ReloadEvent());
+          }),
+        ));
   }
 }
 
@@ -102,6 +114,25 @@ class CommentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget profile = ClipOval(
+      child: Image.asset(
+        'images/portrait.jpg',
+        fit: BoxFit.fill,
+        width: 60,
+        height: 60,
+      ),
+    );
+    if (bean.image != null) {
+      profile = ClipOval(
+        child: Image.network(
+          bean.image,
+          fit: BoxFit.fill,
+          width: 60,
+          height: 60,
+        ),
+      );
+    }
+
     return GestureDetector(
       onTap: () {
 //        TravelRouter.navigateTo(context, TravelRouter.detail, params: {
@@ -109,42 +140,68 @@ class CommentItem extends StatelessWidget {
 //        });
       },
       child: Container(
-        height: 100.h,
+        height: 110.h,
         color: Colors.white,
         child: Stack(
-          alignment: AlignmentDirectional.centerStart,
+          alignment: AlignmentDirectional.topStart,
           children: <Widget>[
-            Positioned(
-                left: 10.w,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    bean.image,
-                    fit: BoxFit.fill,
-                    width: 90.w,
-                    height: 70.h,
-                  ),
-                )),
+            Positioned(left: 10.w, top: 5, child: profile),
             Positioned(
               top: 10.h,
-              left: 120.w,
+              left: 100.w,
               child: Text(bean.username, style: TextStyles.textDark17),
             ),
             Positioned(
-              top: 40.h,
-              left: 120.w,
-              width: 170.w,
+              top: 65.h,
+              left: 10.w,
               child: Text(
-                bean.content,
+                bean.content ?? '',
                 style: TextStyles.textDark15,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
             ),
             Positioned(
+              left: 10.w,
               bottom: 10.h,
-              left: 120.w,
-              child: Text(bean.time, style: TextStyles.textDark15),
+              child: Text(
+                bean.time
+              ),
+            ),
+            Positioned(
+              bottom: 10.h,
+              right: 10.w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+//                  Text(bean.time, style: TextStyles.textDark15),
+
+                  Container(
+                    width: 40.w,
+                    child: Image.asset(
+                      'images/coment.png',
+                      width: 20,
+                      height: 20,
+                    ),
+                  ),
+                  Container(
+                    width: 40.w,
+                    child: Image.asset(
+                      'images/good.png',
+                      width: 20,
+                      height: 20,
+                    ),
+                  ),
+                  Container(
+                    width: 40.w,
+                    child: Image.asset(
+                      'images/share.png',
+                      width: 20,
+                      height: 20,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

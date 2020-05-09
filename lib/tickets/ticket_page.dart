@@ -211,7 +211,7 @@ class TrainTicketItem extends StatelessWidget {
                                   onPressed: () async {
                                     var result = await ApiRepository
                                         .buyTrainFlightTicket(
-                                            bean.secendclass,
+                                            bean.trainnumber,
                                             bean.starttime,
                                             bean.endtime,
                                             bean.secendprice,
@@ -293,7 +293,7 @@ class FlightTicketItem extends StatelessWidget {
                                 onPressed: () async {
                                   var result = await ApiRepository
                                       .buyTrainFlightTicket(
-                                      bean.economyclass,
+                                      bean.flightnumber,
                                       bean.starttime,
                                       bean.endtime,
                                       bean.economyprice,

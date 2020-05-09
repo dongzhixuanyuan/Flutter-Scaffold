@@ -4,6 +4,7 @@ import 'package:travelflutter/application.dart';
 import 'package:travelflutter/common/customToast.dart';
 import 'package:travelflutter/common/shared_preference_key.dart';
 import 'package:travelflutter/net/api_repository.dart';
+import 'package:travelflutter/res/resources.dart';
 import 'package:travelflutter/router/routers.dart';
 import 'package:travelflutter/user/user.dart';
 
@@ -18,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
     // TODO: implement initState
     super.initState();
 
-    Future.delayed(Duration(milliseconds: 700), () {
+    Future.delayed(Duration(milliseconds: 200), () {
       Application.sharedPreference().then((sp) async {
         var name = sp.getString(SharedPreferenceKeys.KEY_USER_NAME) ?? "";
         var password = sp.getString(SharedPreferenceKeys.KEY_PASS_WORD) ?? "";
@@ -46,7 +47,10 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        child: Image.asset('images/beach.jpg'),
+        child: Container(
+          alignment: Alignment.center,
+          child: Text('即刻旅游',style: TextStyles.textBoldDark26,),
+        ),
       ),
     );
   }
