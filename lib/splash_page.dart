@@ -30,6 +30,15 @@ class _SplashPageState extends State<SplashPage> {
           if (loginResult.data.result.stat == '1') {
 //            Toast.show('登录成功', context);
             MineUser.user = loginResult.data.result.login.first;
+            var imagreResponse = await ApiRepository.getAvartarImage(MineUser.user.username);
+            if (imagreResponse != null) {
+              MineUser.user.image =
+                  imagreResponse.data.result.userimage.first.image;
+            } else {
+              MineUser.user.image =
+              'http://139.159.154.117:8080/travel/upload/2020/05/09/ec73dbb0c70678f3eb13cdb2c2229d5e.jpg';
+            }
+
             TravelRouter.navigateTo(context, TravelRouter.main);
           } else {
             Toast.show('登录失败', context);

@@ -19,8 +19,8 @@ void main() {
 
 
   test("get avartar iamge ", () async {
-    var data = await ApiRepository.getAvartarImage('wer');
-
+    var data = await ApiRepository.getAvartarImage('liudong');
+    debugPrint(data.toString());
 //    assert(data.code == 200);
   });
 

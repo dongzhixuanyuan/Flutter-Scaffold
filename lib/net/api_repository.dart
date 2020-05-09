@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:travelflutter/home/model/strategy_model.dart';
@@ -5,6 +7,7 @@ import 'package:travelflutter/home_detail/bloc/comment_model.dart';
 import 'package:travelflutter/net/common_net_response.dart';
 import 'package:travelflutter/tickets/flight_ticket_model.dart';
 import 'package:travelflutter/tickets/train_ticket_model.dart';
+import 'package:travelflutter/user/image_model.dart';
 import 'package:travelflutter/user/order/order_model.dart';
 import 'package:travelflutter/user/user_model.dart';
 
@@ -50,14 +53,21 @@ class ApiRepository {
     return NetResponse(response, (response) => null);
   }
 
-  static Future<Object> getAvartarImage(String username) async {
+  static Future<NetResponse<ImageModel>> getAvartarImage(
+      String username) async {
     var prePost = await HttpManager.instance.post(
       Api.SetSelectImage,
       data: {'username': username},
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );
+//    var tmp = await Future.delayed(Duration(milliseconds: 800),()=>1);
+    sleep(Duration(milliseconds: 200));
     var response = await HttpManager.instance.get(Api.GetSelectImage);
-    debugPrint(response.toString());
+    if (response.statusCode == 200 && response.data is Map) {
+      return NetResponse(
+          response, (response) => ImageModel.fromJson(response.data));
+    }
+    return null;
   }
 
 //  修改密码接口

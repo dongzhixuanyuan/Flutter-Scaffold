@@ -31,6 +31,7 @@ class HomeItem extends StatelessWidget {
           children: <Widget>[
             Positioned(
                 left: 10.w,
+                top: 25.h,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(

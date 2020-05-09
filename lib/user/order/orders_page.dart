@@ -87,8 +87,8 @@ class OrderItem extends StatelessWidget {
           ),
           Positioned(
             top: 37,
-            left: 90,
-            child: Text(orders.seatnumber),
+            left: 150,
+            child: Text("座位号:${orders.seatnumber}"),
           ),
           Positioned(
             left: 10,

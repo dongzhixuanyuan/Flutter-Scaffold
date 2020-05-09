@@ -145,9 +145,20 @@ class _LoginPageState extends State<LoginPage> {
                         response.data?.result?.stat == '1') {
                       Toast.show('登录成功', context);
                       MineUser.user = response.data.result.login.first;
+                      var imagreResponse = await ApiRepository.getAvartarImage(
+                          MineUser.user.username);
+                      if (imagreResponse != null) {
+                        MineUser.user.image =
+                            imagreResponse.data.result.userimage.first.image;
+                      } else {
+                        MineUser.user.image =
+                            'http://139.159.154.117:8080/travel/upload/2020/05/09/ec73dbb0c70678f3eb13cdb2c2229d5e.jpg';
+                      }
                       var sp = await Application.sharedPreference();
-                      sp.setString(SharedPreferenceKeys.KEY_USER_NAME, MineUser.user.username);
-                      sp.setString(SharedPreferenceKeys.KEY_PASS_WORD, MineUser.user.password);
+                      sp.setString(SharedPreferenceKeys.KEY_USER_NAME,
+                          MineUser.user.username);
+                      sp.setString(SharedPreferenceKeys.KEY_PASS_WORD,
+                          MineUser.user.password);
                       TravelRouter.navigateTo(context, TravelRouter.main);
                     } else {
                       Toast.show('登录失败，请检查用户名和密码', context);
